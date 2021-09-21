@@ -1,0 +1,13 @@
+# Package Managers
+node_modules
+npm-debug.log
+
+# Build Artifacts
+*.backup
+*.cache
+*.tgz
+
+# Source Code
+rollup.config.js
+src
+index.ts

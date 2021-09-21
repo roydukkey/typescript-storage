@@ -1,0 +1,16 @@
+{
+	"name": "typescript-env",
+	"description": "This package provides typed interface accessing environment variables",
+	"version": "1.0.0-alpha.0",
+	"keywords": [
+		"env",
+		"environment",
+		"typed",
+		"variables",
+		"typescript"
+	],
+	"module": "./dist/build.js",
+	"types": "./dist/build.d.ts",
+	"main": "./dist/build.umd.js",
+	"clean-package": "../../build/clean-package.sub.js"
+}

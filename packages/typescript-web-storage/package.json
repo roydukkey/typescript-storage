@@ -1,0 +1,19 @@
+{
+	"name": "typescript-web-storage",
+	"description": "This package provides a typed, common interface for LocalStorage, SessionStorage, and WebStorage",
+	"version": "1.0.0-alpha.0",
+	"keywords": [
+		"typed",
+		"storage",
+		"variables",
+		"local-storage",
+		"session-storage",
+		"web-storage",
+		"events",
+		"typescript"
+	],
+	"module": "./dist/build.js",
+	"types": "./dist/build.d.ts",
+	"main": "./dist/build.umd.js",
+	"clean-package": "../../build/clean-package.sub.js"
+}

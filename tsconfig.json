@@ -1,0 +1,26 @@
+{
+	"compilerOptions": {
+		"lib": [
+			"ES2019",
+			"DOM"
+		],
+		"target": "ES2017",
+		"module": "commonjs",
+		"moduleResolution": "node",
+		"baseUrl": "./packages",
+		"outDir": "./dist",
+		"rootDir": "./",
+		"resolveJsonModule": false,
+		"sourceMap": false,
+		"declaration": true,
+		"strict": true,
+		"noImplicitAny": true,
+		"noImplicitThis": true,
+		"removeComments": false
+	},
+	"exclude": [
+		"node_modules",
+		"./dist",
+		"./test"
+	]
+}

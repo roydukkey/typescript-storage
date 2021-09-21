@@ -1,0 +1,135 @@
+{
+	"name": "typescript-storage",
+	"description": "This package provides a typed, common interface for multiple different storage domains",
+	"version": "1.0.0-alpha.0",
+	"author": {
+		"name": "roydukkey",
+		"email": "contact@changelog.me",
+		"url": "http://changelog.me"
+	},
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/roydukkey/typescript-storage.git"
+	},
+	"homepage": "https://github.com/roydukkey/typescript-storage#readme",
+	"bugs": {
+		"url": "https://github.com/roydukkey/typescript-storage/issues"
+	},
+	"keywords": [
+		"typed",
+		"cookie",
+		"storage",
+		"local-storage",
+		"session-storage",
+		"web-storage",
+		"env",
+		"environment",
+		"variables",
+		"events",
+		"typescript"
+	],
+	"module": "./dist/build.js",
+	"types": "./dist/build.d.ts",
+	"main": "./dist/build.umd.js",
+	"config": {
+		"subPackages": {
+			"typescript-env": "TS_Environment",
+			"typescript-web-storage": "TS_WebStorage",
+			"typescript-cookie-storage": "TS_CookieStorage"
+		}
+	},
+	"devDependencies": {
+		"@babel/core": "^7.15.5",
+		"@babel/preset-env": "^7.15.6",
+		"@roydukkey/eslint-config": "^1.0.10",
+		"@types/jest": "^27.0.1",
+		"@types/node": "^16.9.4",
+		"@typescript-eslint/eslint-plugin": "^4.31.1",
+		"@typescript-eslint/parser": "^4.31.1",
+		"browserslist": "^4.17.0",
+		"clean-package": "^2.0.0",
+		"cspell": "^5.10.1",
+		"eslint": "^7.32.0",
+		"eslint-plugin-tsdoc": "^0.2.14",
+		"globby": "^12.0.2",
+		"jest": "^27.2.1",
+		"rollup": "^2.56.3",
+		"rollup-plugin-license": "^2.5.0",
+		"rollup-plugin-ts": "^1.4.2",
+		"terser": "^5.8.0",
+		"ts-jest": "^27.0.5",
+		"typescript": "^4.4.3",
+		"universal-cookie": "^4.0.4"
+	},
+	"scripts": {
+		"clean": "node ./build/clean.mjs",
+		"lint": "yarn run lint:spelling && yarn run lint:es",
+		"lint:es": "eslint --ext js,ts ./",
+		"lint:spelling": "cspell --config './.vscode/cSpell.json' --no-progress '**/{.*/**/,.*/**/.,,.}*'",
+		"build": "yarn run clean && rollup --config",
+		"minify": "terser $npm_package_module --compress --mangle --module -o $npm_package_module & terser $npm_package_main --compress --mangle -o $npm_package_main",
+		"test": "jest",
+		"test:build": "JEST_TEST=build yarn run test",
+		"prepack": "yarn prepack:common && clean-package",
+		"prepack:common": "yarn run lint && yarn run build && yarn run minify && yarn run test:build -- --coverage=false --verbose=false",
+		"pack:main": "yarn pack && clean-package restore",
+		"pack:cookie": "yarn prepack:common && cd ./packages/typescript-cookie-storage && clean-package && yarn pack && clean-package restore",
+		"pack:env": "yarn prepack:common && cd ./packages/typescript-env && clean-package && yarn pack && clean-package restore",
+		"pack:web": "yarn prepack:common && cd ./packages/typescript-web-storage && clean-package && yarn pack && clean-package restore",
+		"publish:main": "yarn publish && clean-package restore",
+		"publish:cookie": "yarn prepack:common && cd ./packages/typescript-cookie-storage && clean-package && yarn publish && clean-package restore",
+		"publish:env": "yarn prepack:common && cd ./packages/typescript-env && clean-package && yarn publish && clean-package restore",
+		"publish:web": "yarn prepack:common && cd ./packages/typescript-web-storage && clean-package && yarn publish && clean-package restore"
+	},
+	"clean-package": "./build/clean-package.main.js",
+	"browserslist": [
+		"defaults"
+	],
+	"jest": {
+		"testEnvironment": "jsdom",
+		"preset": "ts-jest/presets/js-with-ts-esm",
+		"verbose": true,
+		"collectCoverage": true,
+		"coverageDirectory": ".jest/coverage",
+		"cacheDirectory": ".jest/cache",
+		"coveragePathIgnorePatterns": [
+			"./test/utils",
+			"./dist"
+		],
+		"globals": {
+			"ts-jest": {
+				"tsconfig": "./test/tsconfig.json",
+				"allowJs": true,
+				"useESM": true
+			}
+		}
+	},
+	"babel": {
+		"presets": [
+			[
+				"@babel/preset-env",
+				{
+					"targets": {
+						"node": "current"
+					}
+				}
+			]
+		],
+		"comments": false
+	},
+	"eslintConfig": {
+		"env": {
+			"node": true
+		},
+		"ignorePatterns": [
+			"**/dist/*"
+		],
+		"extends": [
+			"@roydukkey/eslint-config"
+		],
+		"rules": {
+			"@typescript-eslint/no-require-imports": "off"
+		}
+	}
+}

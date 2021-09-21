@@ -1,0 +1,13 @@
+{
+	"extends": "../tsconfig.json",
+	"compilerOptions": {
+		"baseUrl": "../packages",
+		"rootDir": "../",
+		"allowJs": true,
+		"esModuleInterop": true,
+		"paths": {
+			"typescript-storage": [ "." ]
+		}
+	},
+	"exclude": []
+}
