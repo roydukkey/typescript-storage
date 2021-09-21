@@ -49,7 +49,7 @@ export class CookieStorage implements TypedStorage {
 	 * @param key - A string containing the name of the key for which to append the listener to the cookie storage event.
 	 * @param listener - A listener that receives a notification (an object that implements the {@link CookieStorageEvent} interface) when a cookie storage event for the given key occurs.
 	 */
-	addListener<T extends StoreValue, R> (key: string, listener: { (event: CookieStorageEvent<T>): R }): typeof listener {
+	addListener<T extends StoreValue, R = void> (key: string, listener: { (event: CookieStorageEvent<T>): R }): typeof listener {
 
 		const innerListener: CookieChangeListener = ({ name, value, ...event }) => {
 			if (key === name) {
@@ -90,12 +90,12 @@ export class CookieStorage implements TypedStorage {
 	 * @param listener - A listener to remove from the cookie storage event for the given key.
 	 * @returns `true` when successfully removed at least one listener; otherwise, `false`.
 	 */
-	removeListener<T extends StoreValue, R> (key: string, listener?: { (event: CookieStorageEvent<T>): R }): boolean;
+	removeListener<T extends StoreValue, R = void> (key: string, listener?: { (event: CookieStorageEvent<T>): R }): boolean;
 
 	/**
 	 * @internal
 	 */
-	removeListener<T extends StoreValue, R> (key: string, listener?: { (event: CookieStorageEvent<T>): R }): boolean {
+	removeListener<T extends StoreValue, R = void> (key: string, listener?: { (event: CookieStorageEvent<T>): R }): boolean {
 		let result = false;
 
 		if (this._listeners.has(key)) {
