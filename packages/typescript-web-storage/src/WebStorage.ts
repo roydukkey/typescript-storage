@@ -52,7 +52,7 @@ export abstract class WebStorage implements TypedStorage {
 	 * @param listener - A listener that receives a notification (an object that implements the {@link WebStorageEvent} interface) when a storage event for the given key occurs.
 	 */
 	// istanbul ignore next
-	addListener<T extends StoreValue, R = void> (key: string, listener: { (event: WebStorageEvent<T>): R }): typeof listener {
+	addListener<T extends StoreValue, R = void | never> (key: string, listener: { (event: WebStorageEvent<T>): R }): typeof listener {
 
 		const innerListener: StorageListener = ({ key: eventKey, storageArea, oldValue, newValue, ...event }) => {
 			if (key === eventKey && storageArea === this.store) {
@@ -94,13 +94,13 @@ export abstract class WebStorage implements TypedStorage {
 	 * @param listener - A listener to remove from the storage event for the given key.
 	 * @returns `true` when successfully removed at least one listener; otherwise, `false`.
 	 */
-	removeListener<T extends StoreValue, R = void> (key: string, listener?: { (event: WebStorageEvent<T>): R }): boolean;
+	removeListener<T extends StoreValue, R = void | never> (key: string, listener?: { (event: WebStorageEvent<T>): R }): boolean;
 
 	/**
 	 * @internal
 	 */
 	// istanbul ignore next
-	removeListener<T extends StoreValue, R = void> (key: string, listener?: { (event: WebStorageEvent<T>): R }): boolean {
+	removeListener<T extends StoreValue, R = void | never> (key: string, listener?: { (event: WebStorageEvent<T>): R }): boolean {
 		let result = false;
 
 		if (this._listeners.has(key)) {
