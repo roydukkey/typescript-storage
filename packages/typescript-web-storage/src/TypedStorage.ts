@@ -42,6 +42,6 @@ export interface TypedStorage {
 export type StoreValue = boolean | number | string | ReadonlyArray<StoreValue | null> | StoreObject;
 
 
-interface StoreObject {
+export interface StoreObject {
 	readonly [key: string]: StoreValue | null;
 }

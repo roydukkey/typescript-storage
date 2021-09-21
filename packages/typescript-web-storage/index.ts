@@ -3,7 +3,7 @@
 // ================================================================= //
 
 
-export { TypedStorage, StoreValue } from './src/TypedStorage';
+export { TypedStorage, StoreValue, StoreObject } from './src/TypedStorage';
 export { WebStorageEvent } from './src/WebStorage';
 export { LocalStorage } from './src/LocalStorage';
 export { SessionStorage } from './src/SessionStorage';

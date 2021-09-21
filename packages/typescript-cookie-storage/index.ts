@@ -3,6 +3,6 @@
 // ================================================================= //
 
 
-export { TypedStorage, StoreValue } from '../typescript-web-storage/src/TypedStorage';
+export { TypedStorage, StoreValue, StoreObject } from '../typescript-web-storage/src/TypedStorage';
 export { CookieStorageEvent } from './src/CookieStorage';
 export { CookieStorage } from './src/CookieStorage';
