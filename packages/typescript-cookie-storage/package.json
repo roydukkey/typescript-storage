@@ -1,7 +1,7 @@
 {
 	"name": "typescript-cookie-storage",
 	"description": "This package provides a typed interface for managing cookies",
-	"version": "1.0.0-alpha.0",
+	"version": "1.0.0-alpha.1",
 	"keywords": [
 		"typed",
 		"cookie",

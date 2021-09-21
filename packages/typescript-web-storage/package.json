@@ -1,7 +1,7 @@
 {
 	"name": "typescript-web-storage",
 	"description": "This package provides a typed, common interface for LocalStorage, SessionStorage, and WebStorage",
-	"version": "1.0.0-alpha.0",
+	"version": "1.0.0-alpha.1",
 	"keywords": [
 		"typed",
 		"storage",
