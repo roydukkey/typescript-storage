@@ -51,6 +51,15 @@ Returns the name of the key at the given index, or null if the index is greater 
 ##### `clear (): this`
 Empties all key/value pairs from storage, if there are any.
 
+##### `addListener<T, R> (key: string, listener: { (event: WebStorageEvent<T>): R }): typeof listener`
+Appends an event listener for the StorageEvent of the given key.
+
+##### `removeListener (key: string): boolean`
+Removes all event listeners for the StorageEvent of the given key. Returns `true` when at least one listener is successfully removed, otherwise `false`.
+
+##### `removeListener<T, R> (key: string, listener: { (event: WebStorageEvent<T>): R }): boolean`
+Removes an event listener for the StorageEvent of the given key. Returns `true` when the listener is successfully removed, otherwise `false`.
+
 #### Listener Methods
 
 Methods to add and remove listeners to specific storage keys have also been added to allow typed values during event handling.
