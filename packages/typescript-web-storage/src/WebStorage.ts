@@ -83,7 +83,7 @@ export abstract class WebStorage implements TypedStorage {
 	 * Removes all event listeners for the {@link StorageEvent} of the given key.
 	 *
 	 * @param key - A string containing the name of the key for which to remove the listeners from the storage event.
-	 * @returns `true` when successfully removed at least one listener; otherwise, `false`.
+	 * @returns `true` when at least one listener is successfully removed; otherwise, `false`.
 	 */
 	removeListener (key: string): boolean;
 
@@ -92,7 +92,16 @@ export abstract class WebStorage implements TypedStorage {
 	 *
 	 * @param key - A string containing the name of the key for which to remove the listener from the storage event.
 	 * @param listener - A listener to remove from the storage event for the given key.
-	 * @returns `true` when successfully removed at least one listener; otherwise, `false`.
+	 * @returns `true` when the listener is successfully removed; otherwise, `false`.
+	 */
+	removeListener<T extends StoreValue, R = void | never> (key: string, listener: { (event: WebStorageEvent<T>): R }): boolean;
+
+	/**
+	 * Removes an event listener for the {@link StorageEvent} of the given key.
+	 *
+	 * @param key - A string containing the name of the key for which to remove the listener from the storage event.
+	 * @param listener - A listener to remove from the storage event for the given key.
+	 * @returns `true` when at least one listener is successfully removed; otherwise, `false`.
 	 */
 	removeListener<T extends StoreValue, R = void | never> (key: string, listener?: { (event: WebStorageEvent<T>): R }): boolean;
 

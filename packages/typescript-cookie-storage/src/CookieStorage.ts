@@ -79,7 +79,7 @@ export class CookieStorage implements TypedStorage {
 	 * Removes all event listeners for the cookie storage event of the given key.
 	 *
 	 * @param key - A string containing the name of the key for which to remove the listeners from the cookie storage event.
-	 * @returns `true` when successfully removed at least one listener; otherwise, `false`.
+	 * @returns `true` when at least one listener is successfully removed; otherwise, `false`.
 	 */
 	removeListener (key: string): boolean;
 
@@ -88,7 +88,16 @@ export class CookieStorage implements TypedStorage {
 	 *
 	 * @param key - A string containing the name of the key for which to remove the listener from the cookie storage event.
 	 * @param listener - A listener to remove from the cookie storage event for the given key.
-	 * @returns `true` when successfully removed at least one listener; otherwise, `false`.
+	 * @returns `true` when the listener is successfully removed; otherwise, `false`.
+	 */
+	removeListener<T extends StoreValue, R = void | never> (key: string, listener: { (event: CookieStorageEvent<T>): R }): boolean;
+
+	/**
+	 * Removes an event listener for the cookie storage event of the given key.
+	 *
+	 * @param key - A string containing the name of the key for which to remove the listener from the cookie storage event.
+	 * @param listener - A listener to remove from the cookie storage event for the given key.
+	 * @returns `true` when at least one listener is successfully removed; otherwise, `false`.
 	 */
 	removeListener<T extends StoreValue, R = void | never> (key: string, listener?: { (event: CookieStorageEvent<T>): R }): boolean;
 

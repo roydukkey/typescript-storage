@@ -21,6 +21,14 @@ export class Environment {
 	static getItem<T extends string | number | boolean> (name: string, defaultValue: T): T;
 
 	/**
+	 * Returns the current value associated with the given name, when it exists for the environment, otherwise returning the specified default value or the given name.
+	 *
+	 * @param name - A string containing the name of the environment variable to retrieve the value of.
+	 * @param defaultValue - The value used when not supplied for the environment.
+	 */
+	static getItem<T extends string | number | boolean> (name: string, defaultValue?: T): string | T;
+
+	/**
 	 * @internal
 	 */
 	static getItem<T extends string | number | boolean> (name: string, defaultValue?: T): string | T {
