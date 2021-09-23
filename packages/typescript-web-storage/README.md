@@ -11,40 +11,47 @@ This package provides typed interface for LocalStorage, SessionStorage, and WebS
 npm install typescript-web-storage
 ```
 
-## Web Storage API
+## Usage
 
 ```ts
 import { LocalStorage, SessionStorage, WebStorage } from 'typescript-web-storage';
+
+const localStorage = new LocalStorage();
+const sessionStorage = new SessionStorage();
 ```
 
-`LocalStorage`, `SessionStorage`, and `WebStorage` all provide a similar interface as JavaScript's native [`Storage`](https://developer.mozilla.org/en-US/docs/Web/API/Storage) interface.
+### WebStorage API
 
-### Properties
+`LocalStorage`, `SessionStorage`, and `WebStorage` all provide a similar interface as JavaScript's native [`Storage`](https://developer.mozilla.org/en-US/docs/Web/API/Storage) interface. However, all methods that receive or return storage values maintain the values type information.
 
-#### `readonly length: number`
+`WebStorage` is an abstract class which can be used to create other storage mechanisms, and is extended to create both `LocalStorage` and `SessionStorage`.
+
+#### Properties
+
+##### `readonly length: number`
 Returns the number of key/value pairs currently present in storage.
 
-#### `protected readonly store: Storage`
+##### `protected readonly store: Storage`
 The [Web Storage API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API) instance on which to add, update, or delete store values.
 
-### Methods
+#### Methods
 
-#### `getItem <T> (key: string): T | null`
+##### `getItem <T> (key: string): T | null`
 Returns the current value associated with the given key, or null if the given key does not exist in storage.
 
-#### `setItem <T> (key: string, value: T): this`
+##### `setItem <T> (key: string, value: T): this`
 Stores the value of an existing pair, identified by given key, to the specified value; otherwise, creating a new key/value pair when none previously exists.
 
-#### `removeItem (key: string): this`
+##### `removeItem (key: string): this`
 Removes the key/value pair for the given key from storage, if the key/value pair exists.
 
-#### `key (index: number): string | null`
+##### `key (index: number): string | null`
 Returns the name of the key at the given index, or null if the index is greater than or equal to the number of key/value pairs in storage.
 
-#### `clear (): this`
+##### `clear (): this`
 Empties all key/value pairs from storage, if there are any.
 
-### Listener Methods
+#### Listener Methods
 
 Methods to add and remove listeners to specific storage keys have also been added to allow typed values during event handling.
 
@@ -65,5 +72,4 @@ store.removeListener('my_bool', listener);
 
 // Or, to remove all listeners on the key.
 store.removeListener('my_bool');
-
 ```
