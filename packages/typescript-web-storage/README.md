@@ -19,7 +19,7 @@ import { LocalStorage, SessionStorage, WebStorage } from 'typescript-web-storage
 const localStorage = new LocalStorage();
 const sessionStorage = new SessionStorage();
 
-// or, extend them.
+// Or, extend them.
 
 class SessionStore extends SessionStorage {
 

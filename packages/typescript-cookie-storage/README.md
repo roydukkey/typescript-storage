@@ -18,7 +18,7 @@ import { CookieStorage } from 'typescript-cookie-storage';
 
 const cookieStorage = new CookieStorage();
 
-// or, extend them.
+// Or, extend them.
 
 class CookieStore extends CookieStorage {
 
