@@ -25,8 +25,8 @@ More information on using [environment variables with React](https://create-reac
 
 #### Methods
 
-##### `getItem (key: string): string`
+<dt><code>getItem (key: string): string</code></dt>
 Returns the current value associated with the given name, when it exists for the environment, otherwise returning the given name.
 
-##### `getItem<T> (name: string, defaultValue: T): T`
+<dt><code>getItem&lt;T&gt; (name: string, defaultValue: T): T</code></dt>
 Returns the current value associated with the given name, when it exists for the environment, otherwise returning the specified default value.

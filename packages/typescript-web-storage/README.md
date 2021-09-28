@@ -20,45 +20,53 @@ const localStorage = new LocalStorage();
 const sessionStorage = new SessionStorage();
 ```
 
-### WebStorage API
+## WebStorage API
 
 `LocalStorage`, `SessionStorage`, and `WebStorage` all provide a similar interface as JavaScript's native [`Storage`](https://developer.mozilla.org/en-US/docs/Web/API/Storage) interface. However, all methods that receive or return storage values maintain the values type information.
 
 `WebStorage` is an abstract class which can be used to create other storage mechanisms, and is extended to create both `LocalStorage` and `SessionStorage`.
 
-#### Properties
+### Properties
 
-##### `readonly length: number`
-Returns the number of key/value pairs currently present in storage.
+<dl>
 
-##### `protected readonly store: Storage`
-The [Web Storage API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API) instance on which to add, update, or delete store values.
+  <dt><code>readonly length: number</code></dt>
+  <dd>Returns the number of key/value pairs currently present in storage.</dd>
 
-#### Methods
+  <dt><code>protected readonly store: Storage</code></dt>
+  <dd>The <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API">Web Storage API</a> instance on which to add, update, or delete store values.</dd>
 
-##### `getItem <T> (key: string): T | null`
-Returns the current value associated with the given key, or null if the given key does not exist in storage.
+</dl>
 
-##### `setItem <T> (key: string, value: T): this`
-Stores the value of an existing pair, identified by given key, to the specified value; otherwise, creating a new key/value pair when none previously exists.
+### Methods
 
-##### `removeItem (key: string): this`
-Removes the key/value pair for the given key from storage, if the key/value pair exists.
+<dl>
 
-##### `key (index: number): string | null`
-Returns the name of the key at the given index, or null if the index is greater than or equal to the number of key/value pairs in storage.
+  <dt><code>getItem &lt;T&gt; (key: string): T | null</code></dt>
+  <dd>Returns the current value associated with the given key, or null if the given key does not exist in storage.</dd>
 
-##### `clear (): this`
-Empties all key/value pairs from storage, if there are any.
+  <dt><code>setItem &lt;T&gt; (key: string, value: T): this</code></dt>
+  <dd>Stores the value of an existing pair, identified by given key, to the specified value; otherwise, creating a new key/value pair when none previously exists.</dd>
 
-##### `addListener<T, R> (key: string, listener: { (event: WebStorageEvent<T>): R }): typeof listener`
-Appends an event listener for the StorageEvent of the given key.
+  <dt><code>removeItem (key: string): this</code></dt>
+  <dd>Removes the key/value pair for the given key from storage, if the key/value pair exists.</dd>
 
-##### `removeListener (key: string): boolean`
-Removes all event listeners for the StorageEvent of the given key. Returns `true` when at least one listener is successfully removed, otherwise `false`.
+  <dt><code>key (index: number): string | null</code></dt>
+  <dd>Returns the name of the key at the given index, or null if the index is greater than or equal to the number of key/value pairs in storage.</dd>
 
-##### `removeListener<T, R> (key: string, listener: { (event: WebStorageEvent<T>): R }): boolean`
-Removes an event listener for the StorageEvent of the given key. Returns `true` when the listener is successfully removed, otherwise `false`.
+  <dt><code>clear (): this</code></dt>
+  <dd>Empties all key/value pairs from storage, if there are any.</dd>
+
+  <dt><code>addListener&lt;T, R&gt; (key: string, listener: { (event: WebStorageEvent&lt;T&gt;): R }): typeof listener</code></dt>
+  <dd>Appends an event listener for the StorageEvent of the given key.</dd>
+
+  <dt><code>removeListener (key: string): boolean</code></dt>
+  <dd>Removes all event listeners for the StorageEvent of the given key. Returns `true` when at least one listener is successfully removed, otherwise `false`.</dd>
+
+  <dt><code>removeListener&lt;T, R&gt; (key: string, listener: { (event: WebStorageEvent&lt;T&gt;): R }): boolean</code></dt>
+  <dd>Removes an event listener for the StorageEvent of the given key. Returns `true` when the listener is successfully removed, otherwise `false`.</dd>
+
+</dl>
 
 #### Listener Methods
 
