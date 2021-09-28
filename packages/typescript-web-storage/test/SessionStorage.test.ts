@@ -134,7 +134,7 @@ packages.forEach(([name, storage]) => {
 
 		});
 
-		describe('LocalStorage.key(index)', () => {
+		describe('SessionStorage.key(index)', () => {
 
 			test('Can get name of a key by index', () => {
 				const resulted = store.key(1);

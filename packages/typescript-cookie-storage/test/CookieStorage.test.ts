@@ -182,7 +182,7 @@ packages.forEach(([name, storage]) => {
 
 		});
 
-		describe('CookieStorage.addListener<T>(key, listener)', () => {
+		describe('Event Listeners', () => {
 			let triggeredEvent: CookieStorageEvent<number> | undefined = undefined;
 
 			const listener = (event: CookieStorageEvent<number>): void => {
