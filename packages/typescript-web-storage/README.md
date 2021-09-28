@@ -24,7 +24,7 @@ const sessionStorage = new SessionStorage();
 class SessionStore extends SessionStorage {
 
   get isAuthenticated (): boolean {
-    this.getItem<string>('authentication')?.length > 0 ?? false;
+    return this.getItem<string>('authentication')?.length > 0 ?? false;
   }
 
   authorize (hash: string): this {

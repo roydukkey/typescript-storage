@@ -20,9 +20,11 @@
 	// http://github.com/streetsidesoftware/cspell-dicts
 	"words": [
 		"browserslist",
+		"deauthorize",
 		"editorconfig",
 		"globby",
 		"omni",
+		"reactivestack",
 		"roydukkey",
 		"streetsidesoftware",
 		"tsdoc"

@@ -23,7 +23,7 @@ const cookieStorage = new CookieStorage();
 class CookieStore extends CookieStorage {
 
   get isAuthenticated (): boolean {
-    this.getItem<string>('authentication')?.length > 0 ?? false;
+    return this.getItem<string>('authentication')?.length > 0 ?? false;
   }
 
   authorize (hash: string): this {
