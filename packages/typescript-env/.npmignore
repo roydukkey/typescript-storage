@@ -10,4 +10,5 @@ npm-debug.log
 # Source Code
 rollup.config.js
 src
+test
 index.ts
