@@ -3,11 +3,11 @@
 // ================================================================= //
 
 import { LocalStorage as completeMain } from 'typescript-storage';
-import { LocalStorage as completeModule } from '../dist/build';
-import { configurePackages } from './utils';
+import { LocalStorage as completeModule } from '../../../dist/build';
+import { configurePackages } from '../../../test/utils';
 import { LocalStorage as main } from 'typescript-web-storage';
-import { LocalStorage as module } from '../packages/typescript-web-storage/dist/build';
-import { LocalStorage as src } from '../packages/typescript-web-storage/src/LocalStorage';
+import { LocalStorage as module } from '../dist/build';
+import { LocalStorage as src } from '../src/LocalStorage';
 
 
 const packages = configurePackages(

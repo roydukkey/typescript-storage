@@ -3,11 +3,11 @@
 // ================================================================= //
 
 import { SessionStorage as completeMain } from 'typescript-storage';
-import { SessionStorage as completeModule } from '../dist/build';
-import { configurePackages } from './utils';
+import { SessionStorage as completeModule } from '../../../dist/build';
+import { configurePackages } from '../../../test/utils';
 import { SessionStorage as main } from 'typescript-web-storage';
-import { SessionStorage as module } from '../packages/typescript-web-storage/dist/build';
-import { SessionStorage as src } from '../packages/typescript-web-storage/src/SessionStorage';
+import { SessionStorage as module } from '../dist/build';
+import { SessionStorage as src } from '../src/SessionStorage';
 
 
 const packages = configurePackages(

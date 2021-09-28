@@ -2,14 +2,14 @@
 // Copyright (c) roydukkey. All rights reserved.                     //
 // ================================================================= //
 
-import type { CookieStorageEvent } from '../packages/typescript-cookie-storage/src/CookieStorage';
+import type { CookieStorageEvent } from '../src/CookieStorage';
 import UniversalCookie from 'universal-cookie';
 import { CookieStorage as completeMain } from 'typescript-storage';
-import { CookieStorage as completeModule } from '../dist/build';
-import { configurePackages } from './utils';
+import { CookieStorage as completeModule } from '../../../dist/build';
+import { configurePackages } from '../../../test/utils';
 import { CookieStorage as main } from 'typescript-cookie-storage';
-import { CookieStorage as module } from '../packages/typescript-cookie-storage/dist/build';
-import { CookieStorage as src } from '../packages/typescript-cookie-storage/src/CookieStorage';
+import { CookieStorage as module } from '../dist/build';
+import { CookieStorage as src } from '../src/CookieStorage';
 
 
 const packages = configurePackages(
