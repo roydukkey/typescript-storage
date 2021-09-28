@@ -18,6 +18,26 @@ import { LocalStorage, SessionStorage, WebStorage } from 'typescript-web-storage
 
 const localStorage = new LocalStorage();
 const sessionStorage = new SessionStorage();
+
+// or, extend them.
+
+class SessionStore extends SessionStorage {
+
+  get isAuthenticated (): boolean {
+    this.getItem<string>('authentication')?.length > 0 ?? false;
+  }
+
+  authorize (hash: string): this {
+    return this.setItem('authentication', hash);
+  }
+
+  deauthorize (): this {
+    return this.removeItem('authentication');
+  }
+
+}
+
+export default new SessionStore();
 ```
 
 ## WebStorage API
@@ -61,12 +81,17 @@ const sessionStorage = new SessionStorage();
   <dd>Appends an event listener for the StorageEvent of the given key.</dd>
 
   <dt><code>removeListener (key: string): boolean</code></dt>
-  <dd>Removes all event listeners for the StorageEvent of the given key. Returns `true` when at least one listener is successfully removed, otherwise `false`.</dd>
+  <dd>Removes all event listeners for the StorageEvent of the given key. Returns <code>true</code> when at least one listener is successfully removed, otherwise <code>false</code>.</dd>
 
   <dt><code>removeListener&lt;T, R&gt; (key: string, listener: { (event: WebStorageEvent&lt;T&gt;): R }): boolean</code></dt>
-  <dd>Removes an event listener for the StorageEvent of the given key. Returns `true` when the listener is successfully removed, otherwise `false`.</dd>
+  <dd>Removes an event listener for the StorageEvent of the given key. Returns <code>true</code> when the listener is successfully removed, otherwise <code>false</code>.</dd>
+
+  <dt><code>static parseRawValue&lt;T&gt; (rawValue: string | null): T | null</code></dt>
+  <dd>Parses a raw store value.</dd>
 
 </dl>
+
+**Note:** `T` in these signatures extends [`StoreValue`](//github.com/roydukkey/typescript-storage/tree/master/packages/typescript-web-storage/src/TypedStorage.ts#L42). `R` is simply the return type of the given listeners.
 
 #### Listener Methods
 
@@ -75,7 +100,7 @@ Methods to add and remove listeners to specific storage keys have also been adde
 ```ts
 import { LocalStorage } from 'typescript-web-storage';
 
-const storage = new LocalStorage();
+const store = new LocalStorage();
 
 const listener = store.addListener('my_bool', (event) => {
   const { oldValue, newValue } = event;

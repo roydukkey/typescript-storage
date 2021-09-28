@@ -21,12 +21,18 @@ const notSecretCode = Environment.getItem('REACT_APP_NOT_SECRET_CODE');
 
 More information on using [environment variables with React](https://create-react-app.dev/docs/adding-custom-environment-variables).
 
-### API
+## API
 
-#### Methods
+### Methods
 
-<dt><code>getItem (key: string): string</code></dt>
-Returns the current value associated with the given name, when it exists for the environment, otherwise returning the given name.
+<dl>
 
-<dt><code>getItem&lt;T&gt; (name: string, defaultValue: T): T</code></dt>
-Returns the current value associated with the given name, when it exists for the environment, otherwise returning the specified default value.
+  <dt><code>getItem (key: string): string</code></dt>
+  <dd>Returns the current value associated with the given name, when it exists for the environment, otherwise returning the given name.</dd>
+
+  <dt><code>getItem&lt;T&gt; (name: string, defaultValue: T): T</code></dt>
+  <dd>Returns the current value associated with the given name, when it exists for the environment, otherwise returning the specified default value.</dd>
+
+</dl>
+
+**Note:** `T` in these signatures extends `string`, `number`, or `boolean`.
