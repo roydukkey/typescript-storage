@@ -33,7 +33,7 @@ More information on using [environment variables with React](https://create-reac
   <dt><code>getItem&lt;T&gt; (name: string, defaultValue: T): T</code></dt>
   <dd>Returns the current value associated with the given name, when it exists for the environment, otherwise returning the specified default value.</dd>
 
-  <dt><code>getItem&lt;T, K1, K2, K3&gt; (name: string, defaultValue: T | null, ...types: [K1, K2, K3]): T</code></dt>
+  <dt><code>getItem&lt;T, K1, K2, K3&gt; (name: string, defaultValue: T | null?, ...types: [K1, K2, K3]): T | null?</code></dt>
   <dd>Returns the current value associated with the given name, matching any of the specified types, when it exists for the environment, otherwise returning the specified default value.</dd>
 
 </dl>
