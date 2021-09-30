@@ -44,20 +44,20 @@ More information on using [environment variables with React](https://create-reac
 
 ```ts
 // Some string with `'SomeNumber'` as the key default (key name).
-const someString = Environment.getItem('SomeString');
+const env_1 = Environment.getItem('env_1');
 
 // Some number with `10` as the default value
-const someNumber = Environment.getItem('SomeNumber', 10);
+const env_2 = Environment.getItem('env_2', 10);
 
 // Some boolean with `false` as the default value
-const env_1 = Environment.getItem('env_1', false);
+const env_3 = Environment.getItem('env_3', false);
 
 // Some string with `null` as the key default.
-const env_2 = Environment.getItem('env_2', null, 'string');
+const env_4 = Environment.getItem('env_4', null, 'string');
 
 // Some number or boolean with `-1` as the default value
-const env_3 = Environment.getItem('env_3', -1, 'number', 'boolean');
+const env_5 = Environment.getItem('env_5', -1, 'number', 'boolean');
 
 // Some number, boolean, or string with `null` as the default value
-const env_4 = Environment.getItem('env_4', null, 'number', 'boolean', 'string');
+const env_6 = Environment.getItem('env_6', null, 'number', 'boolean', 'string');
 ```
