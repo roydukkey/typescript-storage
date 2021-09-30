@@ -31,9 +31,17 @@ export class Environment {
 
 	static getItem<T extends ValueTypeFromName<K1>, K1 extends ValueTypeNames> (name: string, defaultValue: T, ...types: [K1]): ValueTypeFromName<K1>;
 
-	static getItem<T extends ValueTypeFromName<K1> | ValueTypeFromName<K2>, K1 extends ValueTypeNames, K2 extends Exclude<ValueTypeNames, K1>> (name: string, defaultValue: T, ...types: [K1, K2]): ValueTypeFromName<K1> | ValueTypeFromName<K2>;
+	static getItem<
+		T extends ValueTypeFromName<K1> | ValueTypeFromName<K2>,
+		K1 extends ValueTypeNames,
+		K2 extends Exclude<ValueTypeNames, K1>
+	> (name: string, defaultValue: T, ...types: [K1, K2]): ValueTypeFromName<K1> | ValueTypeFromName<K2>;
 
-	static getItem<T extends ValueTypeFromName<K1> | ValueTypeFromName<K2> | ValueTypeFromName<K3>, K1 extends ValueTypeNames, K2 extends Exclude<ValueTypeNames, K1>, K3 extends Exclude<ValueTypeNames, K1 | K2>> (name: string, defaultValue: T, ...types: [K1, K2, K3]): ValueTypeFromName<K1> | ValueTypeFromName<K2> | ValueTypeFromName<K3>;
+	static getItem<
+		T extends ValueTypeFromName<K1> | ValueTypeFromName<K2> | ValueTypeFromName<K3>,
+		K1 extends ValueTypeNames, K2 extends Exclude<ValueTypeNames, K1>,
+		K3 extends Exclude<ValueTypeNames, K1 | K2>
+	> (name: string, defaultValue: T, ...types: [K1, K2, K3]): ValueTypeFromName<K1> | ValueTypeFromName<K2> | ValueTypeFromName<K3>;
 
 	/**
 	 * @internal
