@@ -83,7 +83,7 @@ packages.forEach(([name, environment]) => {
 			test('Returns the value as a boolean when key exists', () => {
 				process.env = { ...process.env, someTrue: 'true', someFalse: 'false', someZero: '0', someOne: '1' };
 
-				let resulted = environment.getItem<boolean>('someTrue', false);
+				let resulted = environment.getItem('someTrue', false);
 				let expected = true;
 				expect(resulted).toBe(expected);
 
@@ -97,6 +97,18 @@ packages.forEach(([name, environment]) => {
 
 				resulted = environment.getItem('someOne', false);
 				expected = true;
+				expect(resulted).toBe(expected);
+			});
+
+		});
+
+		describe('Environment.getItem<T>(key, defaultValue, types)', () => {
+
+			test('Returns the value as a number when key exists', () => {
+				process.env = { ...process.env, someNumber: '025.09808000' };
+
+				const resulted = environment.getItem('someNumber', 10, 'boolean', 'number');
+				const expected = 25.09808;
 				expect(resulted).toBe(expected);
 			});
 
