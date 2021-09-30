@@ -56,7 +56,7 @@ packages.forEach(([name, environment]) => {
 
 		});
 
-		describe('Environment.getItem<T>(key, defaultValue)', () => {
+		describe('Environment.getItem(key, defaultValue)', () => {
 
 			test('Returns the default when key does not exist', () => {
 				const resulted = environment.getItem('someNumber', 10);
@@ -83,7 +83,7 @@ packages.forEach(([name, environment]) => {
 			test('Returns the value as a boolean when key exists', () => {
 				process.env = { ...process.env, someTrue: 'true', someFalse: 'false', someZero: '0', someOne: '1' };
 
-				let resulted = environment.getItem<boolean>('someTrue', false);
+				let resulted = environment.getItem('someTrue', false);
 				let expected = true;
 				expect(resulted).toBe(expected);
 
@@ -97,6 +97,108 @@ packages.forEach(([name, environment]) => {
 
 				resulted = environment.getItem('someOne', false);
 				expected = true;
+				expect(resulted).toBe(expected);
+			});
+
+		});
+
+		describe('Environment.getItem(key, defaultValue, ...types)', () => {
+
+			test('Returns the value as a boolean or number when key exists', () => {
+				process.env = { ...process.env, someTrue: 'true', someFalse: 'false', someZero: '0', someOne: '1' };
+
+				let resulted = environment.getItem('someTrue', 10, 'boolean', 'number');
+				let expected: unknown = true;
+				expect(resulted).toBe(expected);
+
+				resulted = environment.getItem('someFalse', 10, 'boolean', 'number');
+				expected = false;
+				expect(resulted).toBe(expected);
+
+				resulted = environment.getItem('someZero', true, 'boolean', 'number');
+				expected = 0;
+				expect(resulted).toBe(expected);
+
+				resulted = environment.getItem('someOne', false, 'boolean', 'number');
+				expected = 1;
+				expect(resulted).toBe(expected);
+			});
+
+			test('Returns the value as a boolean or string when key exists', () => {
+				process.env = { ...process.env, someTrue: 'true', someFalse: 'false', someZero: '0', someOne: '1' };
+
+				let resulted = environment.getItem('someTrue', '10', 'boolean', 'string');
+				let expected: unknown = true;
+				expect(resulted).toBe(expected);
+
+				resulted = environment.getItem('someFalse', '10', 'boolean', 'string');
+				expected = false;
+				expect(resulted).toBe(expected);
+
+				resulted = environment.getItem('someZero', true, 'boolean', 'string');
+				expected = '0';
+				expect(resulted).toBe(expected);
+
+				resulted = environment.getItem('someOne', false, 'boolean', 'string');
+				expected = '1';
+				expect(resulted).toBe(expected);
+			});
+
+			test('Returns the value as a number or string when key exists', () => {
+				process.env = { ...process.env, someTrue: 'true', someFalse: 'false', someZero: '0', someOne: '1' };
+
+				let resulted = environment.getItem('someTrue', 10, 'number', 'string');
+				let expected: unknown = 'true';
+				expect(resulted).toBe(expected);
+
+				resulted = environment.getItem('someFalse', 10, 'number', 'string');
+				expected = 'false';
+				expect(resulted).toBe(expected);
+
+				resulted = environment.getItem('someZero', 'true', 'number', 'string');
+				expected = 0;
+				expect(resulted).toBe(expected);
+
+				resulted = environment.getItem('someOne', 'false', 'number', 'string');
+				expected = 1;
+				expect(resulted).toBe(expected);
+			});
+
+			test('Returns the value as a boolean, number, string when key exists', () => {
+				process.env = { ...process.env, someTrue: 'true', someFalse: 'false', someZero: '0', someOne: '1', someString: 'x1x2' };
+
+				let resulted = environment.getItem('someTrue', 10, 'boolean', 'number', 'string');
+				let expected: unknown = true;
+				expect(resulted).toBe(expected);
+
+				resulted = environment.getItem('someFalse', 10, 'boolean', 'number', 'string');
+				expected = false;
+				expect(resulted).toBe(expected);
+
+				resulted = environment.getItem('someZero', true, 'boolean', 'number', 'string');
+				expected = 0;
+				expect(resulted).toBe(expected);
+
+				resulted = environment.getItem('someOne', false, 'boolean', 'number', 'string');
+				expected = 1;
+				expect(resulted).toBe(expected);
+
+				resulted = environment.getItem('someString', 10, 'boolean', 'number', 'string');
+				expected = 'x1x2';
+				expect(resulted).toBe(expected);
+			});
+
+			test('Returns the default value undefined when key does not exist', () => {
+				let resulted: unknown = environment.getItem('someOtherNonexistenceKey', null, 'boolean');
+				let expected = null;
+				expect(resulted).toBe(expected);
+
+				resulted = environment.getItem('someOtherNonexistenceKey', null, 'number', 'string');
+				expected = null;
+				expect(resulted).toBe(expected);
+
+				resulted = environment.getItem('someOtherNonexistenceKey', null, 'boolean', 'number', 'string');
+				expected = null;
 				expect(resulted).toBe(expected);
 			});
 
