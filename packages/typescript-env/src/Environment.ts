@@ -21,17 +21,13 @@ export class Environment {
 	static getItem<T extends EnvironmentValue> (name: string, defaultValue: T): T extends number ? number : T extends boolean ? boolean : string;
 
 	/**
-	 * Returns the current value associated with the given name, matching any of the specified types, when it exists for the environment, otherwise returning the specified default value.
+	 * Returns the current value associated with the given name, matching the specified type, when it exists for the environment, otherwise returning the specified default value.
 	 *
 	 * @param name - A string containing the name of the environment variable to retrieve the value of.
 	 * @param defaultValue - The value used when the item is not supplied for the environment.
-	 * @param types - The possible types which are acceptable for item values.
+	 * @param type - The possible types which are acceptable for item values.
 	 */
-	static getItem<
-		T extends EnvironmentValueFromName<K1> | EnvironmentValueFromName<K2>,
-		K1 extends EnvironmentValueNames,
-		K2 extends Exclude<EnvironmentValueNames, K1>
-	> (name: string, defaultValue: T, ...types: [K1, K2]): EnvironmentValueFromName<K1> | EnvironmentValueFromName<K2>;
+	static getItem<T extends EnvironmentValueFromName<K1> | null, K1 extends EnvironmentValueNames> (name: string, defaultValue: T, type: K1): EnvironmentValueFromName<K1> | (T extends null ? null : never);
 
 	/**
 	 * Returns the current value associated with the given name, matching any of the specified types, when it exists for the environment, otherwise returning the specified default value.
@@ -41,15 +37,28 @@ export class Environment {
 	 * @param types - The possible types which are acceptable for item values.
 	 */
 	static getItem<
-		T extends EnvironmentValueFromName<K1> | EnvironmentValueFromName<K2> | EnvironmentValueFromName<K3>,
+		T extends EnvironmentValueFromName<K1> | EnvironmentValueFromName<K2> | null,
+		K1 extends EnvironmentValueNames,
+		K2 extends Exclude<EnvironmentValueNames, K1>
+	> (name: string, defaultValue: T, ...types: [K1, K2]): EnvironmentValueFromName<K1> | EnvironmentValueFromName<K2> | (T extends null ? null : never);
+
+	/**
+	 * Returns the current value associated with the given name, matching any of the specified types, when it exists for the environment, otherwise returning the specified default value.
+	 *
+	 * @param name - A string containing the name of the environment variable to retrieve the value of.
+	 * @param defaultValue - The value used when the item is not supplied for the environment.
+	 * @param types - The possible types which are acceptable for item values.
+	 */
+	static getItem<
+		T extends EnvironmentValueFromName<K1> | EnvironmentValueFromName<K2> | EnvironmentValueFromName<K3> | null,
 		K1 extends EnvironmentValueNames, K2 extends Exclude<EnvironmentValueNames, K1>,
 		K3 extends Exclude<EnvironmentValueNames, K1 | K2>
-	> (name: string, defaultValue: T, ...types: [K1, K2, K3]): EnvironmentValueFromName<K1> | EnvironmentValueFromName<K2> | EnvironmentValueFromName<K3>;
+	> (name: string, defaultValue: T, ...types: [K1, K2, K3]): EnvironmentValueFromName<K1> | EnvironmentValueFromName<K2> | EnvironmentValueFromName<K3> | (T extends null ? null : never);
 
 	/**
 	 * @internal
 	 */
-	static getItem (name: string, defaultValue?: EnvironmentValue, ...types: [EnvironmentValueNames?, EnvironmentValueNames?, EnvironmentValueNames?]): EnvironmentValue {
+	static getItem (name: string, defaultValue?: EnvironmentValue | null, ...types: [EnvironmentValueNames?, EnvironmentValueNames?, EnvironmentValueNames?]): EnvironmentValue | null {
 
 		// Get value; otherwise the variable name.
 		const value = process.env[name] ?? name;

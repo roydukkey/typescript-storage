@@ -188,6 +188,20 @@ packages.forEach(([name, environment]) => {
 				expect(resulted).toBe(expected);
 			});
 
+			test('Returns the default value undefined when key does not exist', () => {
+				let resulted: unknown = environment.getItem('someOtherNonexistenceKey', null, 'boolean');
+				let expected = null;
+				expect(resulted).toBe(expected);
+
+				resulted = environment.getItem('someOtherNonexistenceKey', null, 'number', 'string');
+				expected = null;
+				expect(resulted).toBe(expected);
+
+				resulted = environment.getItem('someOtherNonexistenceKey', null, 'boolean', 'number', 'string');
+				expected = null;
+				expect(resulted).toBe(expected);
+			});
+
 		});
 
 	});
