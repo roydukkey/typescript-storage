@@ -6,52 +6,53 @@
 export class Environment {
 
 	/**
-	 * Returns the current value associated with the given name, when it exists for the environment, otherwise returning the given name.
+	 * Returns the current value associated with the given name, as a string, when it exists for the environment, otherwise returning the given name.
 	 *
 	 * @param name - A string containing the name of the environment variable to retrieve the value of.
 	 */
 	static getItem (name: string): string;
 
 	/**
-	 * Returns the current value associated with the given name, when it exists for the environment, otherwise returning the specified default value.
+	 * Returns the current value associated with the given name, matching the specified default value's type, when it exists for the environment, otherwise returning the default value.
 	 *
 	 * @param name - A string containing the name of the environment variable to retrieve the value of.
-	 * @param defaultValue - The value used when not supplied for the environment.
+	 * @param defaultValue - The value used when the item is not supplied for the environment.
 	 */
-	static getItem<T extends ValueTypes> (name: string, defaultValue: T): ValueType<T>;
+	static getItem<T extends EnvironmentValue> (name: string, defaultValue: T): T extends number ? number : T extends boolean ? boolean : string;
 
 	/**
-	 * Returns the current value associated with the given name, when it exists for the environment, otherwise returning the specified default value or the given name.
+	 * Returns the current value associated with the given name, matching any of the specified types, when it exists for the environment, otherwise returning the specified default value.
 	 *
 	 * @param name - A string containing the name of the environment variable to retrieve the value of.
-	 * @param defaultValue - The value used when not supplied for the environment.
+	 * @param defaultValue - The value used when the item is not supplied for the environment.
+	 * @param types - The possible types which are acceptable for item values.
 	 */
-	// static getItem<T extends string | number | boolean> (name: string, defaultValue?: T): string | T;
-
-
-	static getItem<T extends ValueTypeFromName<K1>, K1 extends ValueTypeNames> (name: string, defaultValue: T, ...types: [K1]): ValueTypeFromName<K1>;
-
 	static getItem<
-		T extends ValueTypeFromName<K1> | ValueTypeFromName<K2>,
-		K1 extends ValueTypeNames,
-		K2 extends Exclude<ValueTypeNames, K1>
-	> (name: string, defaultValue: T, ...types: [K1, K2]): ValueTypeFromName<K1> | ValueTypeFromName<K2>;
+		T extends EnvironmentValueFromName<K1> | EnvironmentValueFromName<K2>,
+		K1 extends EnvironmentValueNames,
+		K2 extends Exclude<EnvironmentValueNames, K1>
+	> (name: string, defaultValue: T, ...types: [K1, K2]): EnvironmentValueFromName<K1> | EnvironmentValueFromName<K2>;
 
+	/**
+	 * Returns the current value associated with the given name, matching any of the specified types, when it exists for the environment, otherwise returning the specified default value.
+	 *
+	 * @param name - A string containing the name of the environment variable to retrieve the value of.
+	 * @param defaultValue - The value used when the item is not supplied for the environment.
+	 * @param types - The possible types which are acceptable for item values.
+	 */
 	static getItem<
-		T extends ValueTypeFromName<K1> | ValueTypeFromName<K2> | ValueTypeFromName<K3>,
-		K1 extends ValueTypeNames, K2 extends Exclude<ValueTypeNames, K1>,
-		K3 extends Exclude<ValueTypeNames, K1 | K2>
-	> (name: string, defaultValue: T, ...types: [K1, K2, K3]): ValueTypeFromName<K1> | ValueTypeFromName<K2> | ValueTypeFromName<K3>;
+		T extends EnvironmentValueFromName<K1> | EnvironmentValueFromName<K2> | EnvironmentValueFromName<K3>,
+		K1 extends EnvironmentValueNames, K2 extends Exclude<EnvironmentValueNames, K1>,
+		K3 extends Exclude<EnvironmentValueNames, K1 | K2>
+	> (name: string, defaultValue: T, ...types: [K1, K2, K3]): EnvironmentValueFromName<K1> | EnvironmentValueFromName<K2> | EnvironmentValueFromName<K3>;
 
 	/**
 	 * @internal
 	 */
-	static getItem (name: string, defaultValue?: ValueTypes, ...types: [ValueTypeNames?, ValueTypeNames?, ValueTypeNames?]): ValueTypes {
-
-		console.log(types);
+	static getItem (name: string, defaultValue?: EnvironmentValue, ...types: [EnvironmentValueNames?, EnvironmentValueNames?, EnvironmentValueNames?]): EnvironmentValue {
 
 		// Get value; otherwise the variable name.
-		let value: string | typeof defaultValue = process.env[name] ?? name;
+		const value = process.env[name] ?? name;
 
 		// If a default value is provided, cast the string value to the appropriate type.
 		if (defaultValue !== undefined) {
@@ -61,28 +62,31 @@ export class Environment {
 				return defaultValue;
 			}
 
-			else {
+			if (types.length <= 0) {
+				types = [typeof defaultValue as EnvironmentValueNames];
+			}
 
-				const type = typeof defaultValue;
+			if (types.includes('number')) {
+				const testValue = Number(value);
 
-				if ('number' === type) {
-					return Number(value);
+				if (!Number.isNaN(testValue) || !types.includes('boolean') && !types.includes('string')) {
+					return testValue;
+				}
+			}
+
+			if (types.includes('boolean')) {
+				const testValue = value.toLocaleLowerCase();
+
+				if (testValue === 'true') {
+					return true;
+				}
+				else if (testValue === 'false') {
+					return false;
 				}
 
-				else if ('boolean' === type) {
-					value = value.toLocaleLowerCase();
-
-					if (value === 'true') {
-						return true;
-					}
-
-					else if (value === 'false') {
-						return false;
-					}
-
+				if (!types.includes('string')) {
 					return !! Number(value);
 				}
-
 			}
 
 		}
@@ -93,7 +97,6 @@ export class Environment {
 }
 
 
-type ValueTypes = string | number | boolean;
-type ValueType<T extends ValueTypes> = T extends number ? number : T extends boolean ? boolean : string;
-type ValueTypeNames = 'string' | 'number' | 'boolean';
-type ValueTypeFromName<T> = T extends 'number' ? number : T extends 'boolean' ? boolean : T extends 'string' ? string : never;
+type EnvironmentValue = string | number | boolean;
+type EnvironmentValueNames = 'string' | 'number' | 'boolean';
+type EnvironmentValueFromName<T> = T extends 'number' ? number : T extends 'boolean' ? boolean : T extends 'string' ? string : never;
