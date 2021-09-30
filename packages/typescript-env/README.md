@@ -40,7 +40,7 @@ More information on using [environment variables with React](https://create-reac
 
 **Note:** `T` in these signatures extends `string`, `number`, or `boolean`. `K1`, `K2`, `K3` are any of several strings indicating types: `'string'`, `'number'`, and `'boolean'`.
 
-### Other examples
+## Examples
 
 ```ts
 // Some string with `'SomeNumber'` as the key default (key name).
